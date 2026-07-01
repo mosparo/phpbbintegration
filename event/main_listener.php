@@ -266,6 +266,17 @@ class main_listener implements EventSubscriberInterface
 
 	public function load_language_on_setup(data $event)
 	{
+		$autoload_prefixed_file = __DIR__ . '/../vendor-prefixed/autoload.php';
+		$autoload_file = __DIR__ . '/../vendor/autoload.php';
+		if (file_exists($autoload_prefixed_file))
+		{
+			require_once $autoload_prefixed_file;
+		}
+		else if (file_exists($autoload_file))
+		{
+			require_once $autoload_file;
+		}
+
 		$lang_set_ext = $event['lang_set_ext'];
 		$lang_set_ext[] = [
 			'ext_name' => 'mosparo/phpbbintegration',

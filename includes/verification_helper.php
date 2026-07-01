@@ -15,8 +15,6 @@ use MosparoDependencies\Mosparo\ApiClient\VerificationResult;
 use MosparoDependencies\Mosparo\ApiClient\Client;
 use phpbb\config\config;
 
-require_once(__DIR__ . '/../vendor-prefixed/autoload.php');
-
 class verification_helper
 {
 	protected config $config;
