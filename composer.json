@@ -44,11 +44,11 @@
     "scripts": {
         "post-install-cmd": [
             "vendor/bin/strauss",
-            "scripts/copy-licenses.php"
+            "php scripts/copy-licenses.php"
         ],
         "post-update-cmd": [
             "vendor/bin/strauss",
-            "scripts/copy-licenses.php"
+            "php scripts/copy-licenses.php"
         ]
     },
     "config": {
