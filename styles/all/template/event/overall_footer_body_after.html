@@ -1,0 +1,46 @@
+{% if MOSPARO_ACTIVE %}
+<script>
+    var m = null;
+    (function () {
+        let scriptEl = null;
+        if (typeof mosparo === "undefined") {
+            scriptEl = document.createElement("script");
+            scriptEl.setAttribute("src", "{{ MOSPARO_HOST }}/build/mosparo-frontend.js");
+            document.body.appendChild(scriptEl);
+        }
+
+        let initializeMosparo = function (ev) {
+            let id = "mosparo_box";
+
+            let mosparoFieldEl = document.getElementById(id);
+            if (!mosparoFieldEl) {
+                return;
+            }
+
+            let formEl = null;
+            let el = mosparoFieldEl;
+            while ((el = el.parentNode) && el !== document) {
+                if (el.matches("form")) {
+                    formEl = el;
+                    break;
+                }
+            }
+
+            m = new mosparo(id, '{{ MOSPARO_HOST }}', '{{ MOSPARO_UUID }}', '{{ MOSPARO_PUBLIC_KEY }}', {
+                loadCssResource: true,
+                inputFieldSelector: '[name]:not(.mosparo__ignored-field):not(#tz_date):not(#timezone_copy):not(.bbcode-size)',
+            });
+        };
+
+        if (scriptEl !== null) {
+            scriptEl.addEventListener("load", function () {
+                initializeMosparo();
+            });
+        } else if (document.readyState !== "loading") {
+            initializeMosparo();
+        } else {
+            document.addEventListener("DOMContentLoaded", initializeMosparo);
+        }
+    })();
+</script>
+{% endif %}

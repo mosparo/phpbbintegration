@@ -1,0 +1,17 @@
+services:
+    mosparo.phpbbintegration.verification_helper:
+        class: mosparo\phpbbintegration\includes\verification_helper
+        arguments:
+            - '@config'
+
+    mosparo.phpbbintegration.listener:
+        class: mosparo\phpbbintegration\event\main_listener
+        arguments:
+            - '@config'
+            - '@request'
+            - '@dispatcher'
+            - '@auth'
+            - '@language'
+            - '@mosparo.phpbbintegration.verification_helper'
+        tags:
+            - { name: event.listener }

@@ -1,0 +1,94 @@
+{% include 'overall_header.html' %}
+
+<h1>{{ lang('ACP_MOSPARO_PHPBBINTEGRATION_TITLE') }}</h1>
+
+<p>{{ lang('ACP_MOSPARO_PHPBBINTEGRATION_INTRO') }}</p>
+<p>{{ lang('ACP_MOSPARO_PHPBBINTEGRATION_HOWTO') }}</p>
+
+{% if S_ERROR %}
+	<div class="errorbox">
+		<h3>{{ lang('WARNING') }}</h3>
+		<p>{{ ERROR_MSG }}</p>
+	</div>
+{% endif %}
+
+<form id="mosparo_phpbbintegration_acp" name="mosparo_phpbbintegration_acp" method="post" action="{{ U_ACTION }}">
+
+	<fieldset>
+		<legend>{{ lang('SETTINGS') }}</legend>
+		<dl>
+			<dt>
+                <label for="mosparo_phpbbintegration_host">{{ lang('ACP_MOSPARO_PHPBBINTEGRATION_HOST') ~ lang('COLON') }}</label>
+                <br>
+                <span>{{ lang('ACP_MOSPARO_PHPBBINTEGRATION_HOST_EXPLAIN') }}</span>
+            </dt>
+            <dd><input type="text" tabindex="1" name="mosparo_phpbbintegration_host" id="mosparo_phpbbintegration_host" size="32" value="{{ MOSPARO_PHPBBINTEGRATION_HOST }}" class="inputbox"></dd>
+        </dl>
+        <dl>
+            <dt>
+                <label for="mosparo_phpbbintegration_uuid">{{ lang('ACP_MOSPARO_PHPBBINTEGRATION_UUID') ~ lang('COLON') }}</label>
+                <br>
+                <span>{{ lang('ACP_MOSPARO_PHPBBINTEGRATION_UUID_EXPLAIN') }}</span>
+            </dt>
+            <dd><input type="text" tabindex="1" name="mosparo_phpbbintegration_uuid" id="mosparo_phpbbintegration_uuid" size="32" value="{{ MOSPARO_PHPBBINTEGRATION_UUID }}" class="inputbox"></dd>
+        </dl>
+        <dl>
+            <dt>
+                <label for="mosparo_phpbbintegration_public_key">{{ lang('ACP_MOSPARO_PHPBBINTEGRATION_PUBLIC_KEY') ~ lang('COLON') }}</label>
+                <br>
+                <span>{{ lang('ACP_MOSPARO_PHPBBINTEGRATION_PUBLIC_KEY_EXPLAIN') }}</span>
+            </dt>
+            <dd><input type="text" tabindex="1" name="mosparo_phpbbintegration_public_key" id="mosparo_phpbbintegration_public_key" size="32" value="{{ MOSPARO_PHPBBINTEGRATION_PUBLIC_KEY }}" class="inputbox"></dd>
+        </dl>
+        <dl>
+            <dt>
+                <label for="mosparo_phpbbintegration_private_key">{{ lang('ACP_MOSPARO_PHPBBINTEGRATION_PRIVATE_KEY') ~ lang('COLON') }}</label>
+                <br>
+                <span>{{ lang('ACP_MOSPARO_PHPBBINTEGRATION_PRIVATE_KEY_EXPLAIN') }}</span>
+            </dt>
+            <dd><input type="text" tabindex="1" name="mosparo_phpbbintegration_private_key" id="mosparo_phpbbintegration_private_key" size="32" value="{{ MOSPARO_PHPBBINTEGRATION_PRIVATE_KEY }}" class="inputbox"></dd>
+        </dl>
+        <dl>
+            <dt>
+                <label>{{ lang('ACP_MOSPARO_PHPBBINTEGRATION_VERIFY_SSL') ~ lang('COLON') }}</label>
+                <br>
+                <span>{{ lang('ACP_MOSPARO_PHPBBINTEGRATION_VERIFY_SSL_EXPLAIN') }}</span>
+            </dt>
+            <dd>
+                <label><input type="radio" class="radio" name="mosparo_phpbbintegration_verify_ssl" value="1"{% if MOSPARO_PHPBBINTEGRATION_VERIFY_SSL %} checked="checked"{% endif %}> {{ lang('YES') }}</label>
+                <label><input type="radio" class="radio" name="mosparo_phpbbintegration_verify_ssl" value="0"{% if not MOSPARO_PHPBBINTEGRATION_VERIFY_SSL %} checked="checked"{% endif %}> {{ lang('NO') }}</label>
+            </dd>
+		</dl>
+        <dl>
+            <dt>
+                <label>{{ lang('ACP_MOSPARO_PHPBBINTEGRATION_PROTECT_REGISTRATION') ~ lang('COLON') }}</label>
+                <br>
+                <span>{{ lang('ACP_MOSPARO_PHPBBINTEGRATION_PROTECT_REGISTRATION_EXPLAIN') }}</span>
+            </dt>
+            <dd>
+                <label><input type="radio" class="radio" name="mosparo_phpbbintegration_protect_registration" value="1"{% if MOSPARO_PHPBBINTEGRATION_PROTECT_REGISTRATION %} checked="checked"{% endif %}> {{ lang('YES') }}</label>
+                <label><input type="radio" class="radio" name="mosparo_phpbbintegration_protect_registration" value="0"{% if not MOSPARO_PHPBBINTEGRATION_PROTECT_REGISTRATION %} checked="checked"{% endif %}> {{ lang('NO') }}</label>
+            </dd>
+        </dl>
+        <dl>
+            <dt>
+                <label>{{ lang('ACP_MOSPARO_PHPBBINTEGRATION_PROTECT_POSTING') ~ lang('COLON') }}</label>
+                <br>
+                <span>{{ lang('ACP_MOSPARO_PHPBBINTEGRATION_PROTECT_POSTING_EXPLAIN') }}</span>
+            </dt>
+            <dd>
+                <label><input type="radio" class="radio" name="mosparo_phpbbintegration_protect_posting" value="1"{% if MOSPARO_PHPBBINTEGRATION_PROTECT_POSTING %} checked="checked"{% endif %}> {{ lang('YES') }}</label>
+                <label><input type="radio" class="radio" name="mosparo_phpbbintegration_protect_posting" value="0"{% if not MOSPARO_PHPBBINTEGRATION_PROTECT_POSTING %} checked="checked"{% endif %}> {{ lang('NO') }}</label>
+            </dd>
+        </dl>
+	</fieldset>
+
+	<fieldset class="submit-buttons">
+		<input class="button1" type="submit" id="submit" name="submit" value="{{ lang('SUBMIT') }}">&nbsp;
+		<input class="button2" type="submit" id="preview" name="preview" value="{{ lang('PREVIEW') }}">
+		{{ S_FORM_TOKEN }}
+	</fieldset>
+
+</form>
+
+{% include 'overall_footer.html' %}

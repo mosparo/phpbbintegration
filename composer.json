@@ -1,0 +1,59 @@
+{
+    "name": "mosparo/phpbbintegration",
+    "type": "phpbb-extension",
+    "description": "A mosparo Integration to protect phpBB with mosparo.",
+    "homepage": "https://mosparo.io",
+    "version": "1.0.0-dev",
+    "time": "2026-06-26",
+    "license": "GPL-2.0-only",
+    "authors": [
+        {
+            "name": "mosparo Core Developers",
+            "email": "info@mosparo.io",
+            "homepage": "https://mosparo.io",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": ">=8.1",
+        "composer/installers": "^1.0",
+        "mosparo/php-api-client": "^1.1"
+    },
+    "require-dev": {
+        "brianhenryie/strauss": "^0.28.0"
+    },
+    "extra": {
+        "display-name": "mosparo Integration",
+        "soft-require": {
+            "phpbb/phpbb": ">=3.3.0,<4.0.0@dev"
+        },
+        "mozart": {
+            "target_directory": "vendor-prefixed",
+            "dep_namespace": "MosparoDependencies\\",
+            "classmap_prefix": "MosparoDependencies_",
+            "constant_prefix": "MOS_",
+            "packages": [
+                "mosparo/php-api-client"
+            ],
+            "delete_vendor_packages": false,
+            "delete_vendor_files": false,
+            "include_author": false,
+            "include_modified_date": false
+        }
+    },
+    "scripts": {
+        "post-install-cmd": [
+            "vendor/bin/strauss",
+            "scripts/copy-licenses.php"
+        ],
+        "post-update-cmd": [
+            "vendor/bin/strauss",
+            "scripts/copy-licenses.php"
+        ]
+    },
+    "config": {
+        "allow-plugins": {
+            "composer/installers": true
+        }
+    }
+}
