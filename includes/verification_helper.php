@@ -11,7 +11,6 @@
 namespace mosparo\phpbbintegration\includes;
 
 use Exception;
-use MosparoDependencies\Mosparo\ApiClient\VerificationResult;
 use MosparoDependencies\Mosparo\ApiClient\Client;
 use phpbb\config\config;
 
@@ -26,7 +25,7 @@ class verification_helper
 		$this->config = $config;
 	}
 
-	public function verify_submission(string $submit_token, string $validation_token, array $form_data): VerificationResult|null
+	public function verify_submission(string $submit_token, string $validation_token, array $form_data): \MosparoDependencies\Mosparo\ApiClient\VerificationResult|null
 	{
 		$host = $this->config['mosparo_phpbbintegration_host'];
 		$public_key = $this->config['mosparo_phpbbintegration_public_key'];
