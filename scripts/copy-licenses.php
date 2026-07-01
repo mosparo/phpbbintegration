@@ -33,27 +33,27 @@ $finder->files()->in($vendor_dir)->followLinks()->exclude(['vendor'])->name('/^.
 
 foreach ($finder as $file)
 {
-    $file_path = $file->getPathname();
-    $target_file_path = str_replace($vendor_dir, $target_dir, $file_path);
+	$file_path = $file->getPathname();
+	$target_file_path = str_replace($vendor_dir, $target_dir, $file_path);
 
-    if (!file_exists(dirname($target_file_path)))
-    {
-        // Skip, if the directory does not exist.
-        continue;
-    }
+	if (!file_exists(dirname($target_file_path)))
+	{
+		// Skip, if the directory does not exist.
+		continue;
+	}
 
-    if ($filesystem->has($target_file_path))
-    {
-        continue;
-    }
+	if ($filesystem->has($target_file_path))
+	{
+		continue;
+	}
 
-    if (!$filesystem->has(dirname($target_file_path)))
-    {
-        continue;
-    }
+	if (!$filesystem->has(dirname($target_file_path)))
+	{
+		continue;
+	}
 
-    $filesystem->copy(
-        $file_path,
-        $target_file_path
-    );
+	$filesystem->copy(
+		$file_path,
+		$target_file_path
+	);
 }

@@ -28,12 +28,12 @@ class install_acp_module extends migration
 	{
 		return [
 			['config.add', ['mosparo_phpbbintegration_host', '']],
-            ['config.add', ['mosparo_phpbbintegration_uuid', '']],
-            ['config.add', ['mosparo_phpbbintegration_public_key', '']],
-            ['config.add', ['mosparo_phpbbintegration_private_key', '']],
-            ['config.add', ['mosparo_phpbbintegration_verify_ssl', true]],
-            ['config.add', ['mosparo_phpbbintegration_protect_registration', true]],
-            ['config.add', ['mosparo_phpbbintegration_protect_posting', true]],
+			['config.add', ['mosparo_phpbbintegration_uuid', '']],
+			['config.add', ['mosparo_phpbbintegration_public_key', '']],
+			['config.add', ['mosparo_phpbbintegration_private_key', '']],
+			['config.add', ['mosparo_phpbbintegration_verify_ssl', true]],
+			['config.add', ['mosparo_phpbbintegration_protect_registration', true]],
+			['config.add', ['mosparo_phpbbintegration_protect_posting', true]],
 
 			['module.add', [
 				'acp',

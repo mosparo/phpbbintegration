@@ -35,6 +35,6 @@ if (empty($lang) || !is_array($lang))
 //
 
 $lang = array_merge($lang, [
-    'MOSPARO_PHPBBINTEGRATION_TOKENS_MISSING' => 'The tokens weren\'t found. This means that something is not correctly initialized.',
-    'MOSPARO_PHPBBINTEGRATION_SUBMISSION_INVALID' => 'The form couldn\'t be processed correctly. The form either contains spam or was not verified correctly.',
+	'MOSPARO_PHPBBINTEGRATION_TOKENS_MISSING' => 'The tokens weren\'t found. This means that something is not correctly initialized.',
+	'MOSPARO_PHPBBINTEGRATION_SUBMISSION_INVALID' => 'The form couldn\'t be processed correctly. The form either contains spam or was not verified correctly.',
 ]);

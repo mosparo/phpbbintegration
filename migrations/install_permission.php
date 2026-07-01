@@ -24,7 +24,7 @@ class install_permission extends migration
 		return [
 			['permission.add', ['f_posting_bypass_mosparo', false]],
 
-            ['permission.permission_set', ['ROLE_FORUM_FULL', 'f_posting_bypass_mosparo', 'role', true]],
+			['permission.permission_set', ['ROLE_FORUM_FULL', 'f_posting_bypass_mosparo', 'role', true]],
 		];
 	}
 }
