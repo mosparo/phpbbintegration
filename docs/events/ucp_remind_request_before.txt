@@ -1,0 +1,87 @@
+TITLE
+=====
+[RFC] New PHP event core.ucp_remind_request_before
+
+BODY
+====
+phpbb\ucp\controller\reset_password::request() (the "forgot password,
+enter your email" step) only has core.ucp_remind_modify_select_sql,
+which lets an extension tweak the SQL query used to look up the user.
+It has no variable an extension can use to reject the submission
+outright, and no place before the form-key check to hook in.
+
+Concretely: mosparo/phpbbintegration already protects registration and
+posting the same way, an event fires, the extension checks a submitted
+token against the mosparo API, and on failure it rejects the request
+before any further processing happens. This method has nowhere to do
+that.
+
+This request pairs with docs/events/ucp_reset_password_verify_before.txt
+(the second step of the same flow) and
+docs/events/ucp_reset_password_widget_before.txt (the shared template
+event both steps render through).
+
+PROPOSED EVENT (PHP)
+---------------------
+Name: core.ucp_remind_request_before
+File: phpbb/ucp/controller/reset_password.php, function request()
+Location: immediately after the form-key check, before the existing
+empty($email) check. Every other failure case in this method already
+returns via $this->helper->message('LANG_KEY'), so a settable $error
+language key fits the method's existing convention exactly, no new
+error-display mechanism needed.
+
+Current markup at that point:
+
+	if ($submit)
+	{
+		if (!check_form_key('ucp_reset_password'))
+		{
+			throw new http_exception(Response::HTTP_UNAUTHORIZED, 'FORM_INVALID');
+		}
+
+		if (empty($email))
+		{
+			return $this->helper->message('NO_EMAIL_USER');
+		}
+
+Proposed insertion:
+
+	if ($submit)
+	{
+		if (!check_form_key('ucp_reset_password'))
+		{
+			throw new http_exception(Response::HTTP_UNAUTHORIZED, 'FORM_INVALID');
+		}
+
+		$error = '';
+
+		/**
+		* Verify a password reset request before it is processed
+		*
+		* @event core.ucp_remind_request_before
+		* @var string	email		User's email from the form
+		* @var string	username	User's username from the form
+		* @var string	error		Language key to abort with, empty string if the request is valid
+		* @since to be filled in by the phpBB dev team at merge time
+		*/
+		$vars = array('email', 'username', 'error');
+		extract($this->dispatcher->trigger_event('core.ucp_remind_request_before', compact($vars)));
+
+		if ($error)
+		{
+			return $this->helper->message($error);
+		}
+
+		if (empty($email))
+		{
+			return $this->helper->message('NO_EMAIL_USER');
+		}
+
+TESTING
+-------
+Manually verified against the phpBB 3.3.17 branch (checked
+phpbb/ucp/controller/reset_password.php directly) that
+core.ucp_remind_modify_select_sql is a SQL-array-only hook with no
+error/rejection variable, and that request() has no other event before
+the SQL query is built.
