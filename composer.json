@@ -3,8 +3,8 @@
     "type": "phpbb-extension",
     "description": "A mosparo Integration to protect phpBB with mosparo.",
     "homepage": "https://mosparo.io",
-    "version": "1.0.0-beta.1",
-    "time": "2026-07-01",
+    "version": "1.0.0-beta.2",
+    "time": "2026-09-03",
     "license": "GPL-2.0-only",
     "authors": [
         {
