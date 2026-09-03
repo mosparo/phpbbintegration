@@ -1,0 +1,59 @@
+TITLE
+=====
+[RFC] New template event login_body_buttons_before
+
+BODY
+====
+login_body.html has no <!-- EVENT --> tags anywhere in it. The PHP side
+of the login form already has a usable hook: core.login_box_before
+fires at the very start of login_box() in includes/functions.php,
+before credentials are checked, and exposes a settable $err string
+that aborts the login attempt when non-empty. What's missing is a
+place in the template to actually render a widget into the form, so
+an extension can only reject a bad submission server-side, never show
+anything to the user client-side.
+
+Concretely: mosparo/phpbbintegration (a CAPTCHA-alternative extension)
+already protects the registration and posting forms, both of which do
+have template events to render its widget into. The login form is the
+one place login_box_before exists but the widget has nowhere to go.
+
+This is the same gap and the same proposed name as an identical request
+from a separate honeypot-style anti-spam extension, so this should be
+treated as one shared request rather than two competing ones if it's
+ever filed against phpBB.
+
+PROPOSED EVENT (template)
+--------------------------
+Name: login_body_buttons_before
+File: styles/prosilver/template/login_body.html
+Location: immediately after the form token, immediately before the
+submit-button block.
+
+Current markup at that point:
+
+	{S_LOGIN_REDIRECT}
+	{S_FORM_TOKEN_LOGIN}
+	<dl>
+		<dt>&nbsp;</dt>
+		<dd>{S_HIDDEN_FIELDS}<input type="submit" name="login" tabindex="6" value="{L_LOGIN}" class="button1" /></dd>
+	</dl>
+
+Proposed insertion:
+
+	{S_LOGIN_REDIRECT}
+	{S_FORM_TOKEN_LOGIN}
+	<!-- EVENT login_body_buttons_before -->
+	<dl>
+		<dt>&nbsp;</dt>
+		<dd>{S_HIDDEN_FIELDS}<input type="submit" name="login" tabindex="6" value="{L_LOGIN}" class="button1" /></dd>
+	</dl>
+
+TESTING
+-------
+Manually verified against the phpBB 3.3.17 branch (checked
+styles/prosilver/template/login_body.html and the login_box_before
+trigger_event() call in includes/functions.php directly) that no
+<!-- EVENT --> tag exists anywhere in the login template, and that
+core.login_box_before already exposes a settable $err before the
+credential check runs.
