@@ -222,13 +222,13 @@ class main_listener implements EventSubscriberInterface
 		{
 			$form_data['username'] = $this->request->untrimmed_variable('username', '');
 			$required_fields[] = 'username';
-			$verified_fields[] = 'username';
+			$verifiable_fields[] = 'username';
 		}
 
 		if ($event['mode'] === 'edit')
 		{
 			$form_data['edit_reason'] = $this->request->untrimmed_variable('edit_reason', '');
-			$verified_fields[] = 'edit_reason';
+			$verifiable_fields[] = 'edit_reason';
 		}
 
 		$form_data_event = new form_data(
